@@ -1,6 +1,9 @@
 for (var year = 1900; year <= 2017; year++){
   $('#birthdate-cnt select[name="birthyear"]').append('<option value="'+year+'">'+year+'</option>');
 }
+for (var day = 1; day <= 31; day++){
+  $('#birthdate-cnt select[name="birthday"]').append('<option value="'+day+'">'+day+'</option>');
+}
 
 function Person(name, sex, birthdate, address, phone, email){
   this.name = name;
