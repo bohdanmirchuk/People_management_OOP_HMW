@@ -27,7 +27,8 @@ $('form').on('submit', addPerson);
   var newbie = new Person(name, sex, birthday+'-'+birthmonth+'-'+birthyear, address, phone, email);
   persons.push(newbie)
   renderPerson(newbie);
-  console.log(persons.indexOf(newbie))  ;
+  cleanForm();
+  console.log(persons.indexOf(newbie));
   return false;
 
 }
@@ -39,3 +40,14 @@ function renderPerson(Person){
 
   console.log(Person.name);
 }
+
+function cleanForm(){
+  $('input[name="name"]').val('');
+  $('select[name="sex"]').val('');
+  $('select[name="birthday"]').val('');
+  $('select[name="birthmonth"]').val('');
+  $('select[name="birthyear"]').val('');
+  $('input[name="address"]').val('');
+  $('input[name="phone"]').val('');
+  $('input[name="email"]').val('');
+};
