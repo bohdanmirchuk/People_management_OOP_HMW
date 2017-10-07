@@ -1,10 +1,12 @@
+//adding year into select
 for (var year = 1900; year <= 2017; year++){
   $('#birthdate-cnt select[name="birthyear"]').append('<option value="'+year+'">'+year+'</option>');
 }
+//adding days into select
 for (var day = 1; day <= 31; day++){
   $('#birthdate-cnt select[name="birthday"]').append('<option value="'+day+'">'+day+'</option>');
 }
-
+//constructor Person
 function Person(name, sex, birthdate, address, phone, email){
   this.name = name;
   this.sex = sex;
@@ -14,8 +16,10 @@ function Person(name, sex, birthdate, address, phone, email){
   this.email = email;
   
 }
+//array persons
 var persons = [];
 
+//calling the function addPerson
 $('form').on('submit', addPerson);
 
   function addPerson(){
@@ -32,8 +36,8 @@ $('form').on('submit', addPerson);
   renderPerson(newbie);
   cleanForm();
   console.log(persons.indexOf(newbie));
+  
   return false;
-
 }
 
 function renderPerson(Person){
