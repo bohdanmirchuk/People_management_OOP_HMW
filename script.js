@@ -6,6 +6,20 @@ for (var year = 1900; year <= 2017; year++){
 for (var day = 1; day <= 31; day++){
   $('#birthdate-cnt select[name="birthday"]').append('<option value="'+day+'">'+day+'</option>');
 }
+
+function SuperUser(){}
+
+SuperUser.prototype.changeDataVisibility = function(){
+  if (this.isDataVisible){
+    $(event.target.parentElement.children).css('color', '#555');
+    $(event.target.parentElement.children[0]).css('color', '#fff');
+    this.isDataVisible = !this.isDataVisible}
+    else{
+    $(event.target.parentElement.children).css('color', '#fff');
+    this.isDataVisible = !this.isDataVisible
+    }
+}
+
 //constructor Person
 function Person(name, sex, birthdate, address, phone, email){
   this.name = name;
@@ -14,8 +28,12 @@ function Person(name, sex, birthdate, address, phone, email){
   this.address = address;
   this.phone = phone;
   this.email = email;
+  this.isDataVisible = true;
   
 }
+
+Person.prototype = Object.create(SuperUser.prototype);
+
 //array persons
 var persons = [];
 
@@ -33,20 +51,20 @@ $('form').on('submit', addPerson);
   var email = $('input[name="email"]').val();
   var newbie = new Person(name, sex, birthday+'-'+birthmonth+'-'+birthyear, address, phone, email);
   persons.push(newbie)
-  renderPerson(newbie);
+  renderPerson();
   cleanForm();
-  console.log(persons.indexOf(newbie));
   
   return false;
 }
 
-function renderPerson(Person){
-  console.log(persons)
-  $('tbody').append('<tr><td>'+Person.name+'</td><td>'+Person.sex+'</td><td>'+Person.birthdate+'</td><td>'+Person.address+'</td><td>'+Person.phone+'</td><td>'+Person.email+'</td></tr>');
-  
-
-  console.log(Person.name);
+function renderPerson(){
+  $('tbody').html('');
+  _.each(persons, function(element, index){
+    $('tbody').append('<tr class="traw"><td>'+element.name+'</td><td>'+element.sex+'</td><td>'+element.birthdate+'</td><td>'+element.address+'</td><td>'+element.phone+'</td><td>'+element.email+'</td></tr>');
+    
+  })
 }
+
 
 function cleanForm(){
   $('input[name="name"]').val('');
@@ -58,3 +76,11 @@ function cleanForm(){
   $('input[name="phone"]').val('');
   $('input[name="email"]').val('');
 };
+
+$('tbody').on('click', function(event){
+  var index = event.target.parentElement.rowIndex;
+    persons[index-1].changeDataVisibility();
+})
+
+
+
